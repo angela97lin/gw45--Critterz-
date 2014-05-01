@@ -19,7 +19,7 @@ Set 10
 4) Why must the get method, which returns an object of type E, be used in the getEmptyAdjacentLocations method when this method returns locations, not objects of type E?
  The get(Location loc) method, which returns an object of type E, must be used in the getEmptyAdjacentLocations(Location loc) method in order to 'get' the object of type E at each neighboring position. If a neighbor is not occupied by an object, then get(Location loc) will return null. Using this, we can get the objects at each neighboring position and add those whose get method returns null in order to determine which adjacent locations are unoccupied or empty.
 
-5) What would be the effect of replacing the constant Location.HALF_RIGHT with Location.RIGHT in the two plaves where it occurs in the getValidAdjacentLocations method?
+5) What would be the effect of replacing the constant Location.HALF_RIGHT with Location.RIGHT in the two places where it occurs in the getValidAdjacentLocations method?
  If we replaced the constant Location.HALF_RIGHT with Location.RIGHT, our for-loop would only count to 4. Hence, we would only check the valid adjacent locations north, south, east, and west of the location, giving us only four possible valid adjacent locations.
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

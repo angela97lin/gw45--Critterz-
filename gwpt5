@@ -1,0 +1,58 @@
+Angela Lin --- Team Critterz
+git@github.com:angela97lin/gw45-Critterz.git
+APCS pd. 9
+HW#35: Bugs Doney -- GridWorld, Part 5
+2014-04-30
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do You Know? 
+Set 10
+
+1) Where is the isValid method specified? Which classes provide an implementation of this method?
+ The isValid(Location loc) method is specified in the Grid interface. The UnboundedGrid and BoundedGrid classes provide different implementations of this method.
+
+2) Which AbstractGrid methods call the isValid method? Why don't the other methods need to call it?
+ AbstractGrid's getValidAdjacentLocations(Location loc), getEmptyAdjacentLocations(Location loc), getOccupiedAdjacentLocations(Location loc), getNeighbors(Location loc) all call the isValid(Location loc) method, either directly or through another method. The other method (toString()) does not need to call isValid() because it simply returns a String with descriptions of all of the objects in the grid.
+
+3) Which methods of the Grid interface are called in the getNeighbors method? Which classes provide implementations of these methods? 
+ The getOccupiedAdjacentLocations(Location loc) method and get(Location loc) method are called in the getNeighbors method. The AbstractGrid class provides implementation of the getOccupidAdjacentLocation(Location loc) method, while the UnboundedGrid and BoundedGrid classes provide implementations of the get(Location loc) method.
+
+4) Why must the get method, which returns an object of type E, be used in the getEmptyAdjacentLocations method when this method returns locations, not objects of type E?
+ The get(Location loc) method, which returns an object of type E, must be used in the getEmptyAdjacentLocations(Location loc) method in order to 'get' the object of type E at each neighboring position. If a neighbor is not occupied by an object, then get(Location loc) will return null. Using this, we can get the objects at each neighboring position and add those whose get method returns null in order to determine which adjacent locations are unoccupied or empty.
+
+5) What would be the effect of replacing the constant Location.HALF_RIGHT with Location.RIGHT in the two plaves where it occurs in the getValidAdjacentLocations method?
+ If we replaced the constant Location.HALF_RIGHT with Location.RIGHT, our for-loop would only count to 4. Hence, we would only check the valid adjacent locations north, south, east, and west of the location, giving us only four possible valid adjacent locations.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do You Know?
+Set 11
+
+1) What ensures that a grid has at least one valid location?
+ The BoundedGrid constructor throws an runtime error if the number of rows or the number of columns is equal to or less than zero.
+ (     if (rows <= 0)
+            throw new IllegalArgumentException("rows <= 0");
+        if (cols <= 0)
+            throw new IllegalArgumentException("cols <= 0");
+ )
+
+2) How is the number of columns in the grid determined by the getNumCols method? What assumption about the grid makes this possible?
+ Since the grid is stored in a 2D array of Objects called occupantArray, the number of columns is determined by occupantArray[0].length, which is returned in the getNumCols() method. This is made possible by the assumption that the BoundedGrid constructor successfully and properly creates an 2D array with r >= 1 and c >= 1. 
+
+3) What are the requirements for a Location to be valid in a BoundedGrid?
+ In order for a Location to be valid in a BoundedGrid, it must have a row value greater than or equal to 0 and less than getNumRows(). Similarly, it must also have a column value greater than or equal to 0 and less than getNumCols(). If it satisfies these conditions, then the Location is valid.
+
+4) What type is returned by the getOccupiedLocations method? What is the time complexity (Big-Oh) for this method?
+ The getOccupiedLocations() method returns an ArrayList of Location objects. This method has a time complexity of O(r * c) where r is the number of rows, and c is the number of columns.
+
+5) What type is returned by the get method? What parameter is needed? What is the time complexity (Big-Oh) for this method?
+ The get(Location loc) method returns an generic or E type object. An Location object is necessary as a parameter for this method to work. This method has a runtime complexity of O(1) since we are simply getting an element from a 2D array at a specific row and column index. 
+
+6) What conditions may cause an exception to be thrown by the put method? What is the time complexity (Big-Oh) for this method?
+ The put(Location loc, E obj) method may throw an IllegalArgumentException if the parameter specifies a location that is not valid or if an NullPointerException if the parameter specifies null as the object that we are attempting to put down. This method has a time complexity of O(1) since we are simply setting the value at a specified row and column index.
+
+7) What type is returned by the remove method? What happens when an attempt is made to remove an item from an empty location? What is the time complexity (Big-Oh) for this method?
+ The remove(Location loc) method returns an generic or E type object. If an attempt is made to remove an item from an empty location, null will be returned. This method has a time complexity of O(1) since we are simply setting the value of a specified row and column index to null.
+
+8) Based on the answers to questions 4, 5, 6, 7, would you consider this an efficient implementation? Justify your answer.
+ Based on the answers to questions 4-7, this is an efficient implementation. The method, getOccupiedLocations() is the only method that has a runtime of O(r * c) while the other methods of BoundedGrid that we analyzed all have a time complexity of O(1), which is super efficient!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

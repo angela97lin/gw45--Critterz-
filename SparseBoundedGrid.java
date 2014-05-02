@@ -1,9 +1,10 @@
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.AbstractGrid;
 import info.gridworld.grid.Location; 
+import java.util.ArrayList;
 // Why is this a more time-efficient implementation than BoundedGrid?
 // This has a more effiecient OccupiedLocations method that is linear and based on number of Occupees while BoundedGrid is based off the dimensions. 
-public class SparseBoundedGrid extends AbstractGrid{
+public class SparseBoundedGrid<E> extends AbstractGrid<E>{
     private int numCols,numRows;
     private SparseGridNode[] theGrid;
     public SparseBoundedGrid(int row, int col){
@@ -15,7 +16,7 @@ public class SparseBoundedGrid extends AbstractGrid{
 	    numRows = row;
 	    theGrid = new SparseGridNode[row];
 	    for (int i = 0; i < theGrid.length; i++){
-		SpareGridNode temp;
+		SparseGridNode temp;
 		for (int j = 0; j < col; j++){
 		    if (j == 0){
 			theGrid[i] = new SparseGridNode(null,col,null);
@@ -30,7 +31,7 @@ public class SparseBoundedGrid extends AbstractGrid{
     }
     public boolean isValid(Location B){
 	int a = B.getCol();
-	inb b = B.getRow();
+	int b = B.getRow();
 	if (a > numRows || b > numCols){
 	    return false;
 	}
@@ -50,7 +51,7 @@ public class SparseBoundedGrid extends AbstractGrid{
 	SparseGridNode ThisNode = theGrid[Row];
         int Col = loc.getCol();
 	for (int i = 0; i < Col; i++){
-	    ThisNode = ThisNode.getnext();
+	    ThisNode = ThisNode.getNext();
 	}
 	E Value = (E)(ThisNode.getValue());
 	ThisNode.setValue(x);
@@ -86,8 +87,8 @@ public class SparseBoundedGrid extends AbstractGrid{
 	for (int i = 0; i < Column; i++){
 	    OneanOnly = OneanOnly.getNext();
 	}
-	E retVal = OneanOnlygetValue();
-	OneanOnly.setNextValue(null);
+	E retVal =(E)(OneanOnly.getValue());
+	OneanOnly.setValue(null);
 	return retVal;
     }
     public ArrayList<Location> getOccupiedLocations(){
@@ -99,7 +100,7 @@ public class SparseBoundedGrid extends AbstractGrid{
 		if (temp.getValue() != null){
 		    retVal.add(new Location(i,j));
 		}
-		temp = temp.getnext();
+		temp = temp.getNext();
 		
 	    }
 	}

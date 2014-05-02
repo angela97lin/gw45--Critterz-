@@ -4,7 +4,7 @@ import java.util.ArrayList;
 // O(1)
 // What is the efficiency when the array needs to be resized?
 // O(n2)
-public class UnboundedGridPartDeux{
+public class UnboundedGridPartDeux<E>{
     private Object[][] DaGrid;
     public UnboundedGridPartDeux(){
 	DaGrid = new Object[16][16];
@@ -34,7 +34,7 @@ public class UnboundedGridPartDeux{
     public E get(Location l){
 	if (!isValid(l))
 	    return null;
-	else if ( l.getLoc() > DaGrid.length || l.getCol() > DaGrid.length)
+	else if ( l.getRow() > DaGrid.length || l.getCol() > DaGrid.length)
 	    return null;
 	else 
 	    return (E)(DaGrid[l.getRow()][l.getCol()]);
